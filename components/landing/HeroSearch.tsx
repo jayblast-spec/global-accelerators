@@ -25,26 +25,33 @@ export function HeroSearch() {
           type="text"
           value={q}
           onChange={e => setQ(e.target.value)}
-          placeholder="Y Combinator, cleantech, Nigeria, seed stage..."
-          className="w-full h-14 rounded-2xl border pl-12 pr-32 text-sm outline-none transition-all"
+          placeholder="search accelerators, regions, stage..."
+          className="hero-search-input w-full h-14 rounded-lg border pl-12 pr-32 outline-none transition-all"
           style={{
-            backgroundColor: "var(--surface)",
-            borderColor: "var(--border)",
+            backgroundColor: "rgba(15,17,26,0.9)",
+            backdropFilter: "blur(20px)",
+            borderColor: "var(--border-glass)",
             color: "var(--foreground)",
+            fontFamily: "var(--font-mono)",
+            fontSize: "13px",
           }}
           onFocus={e => {
-            e.currentTarget.style.borderColor = "var(--accent)";
-            e.currentTarget.style.boxShadow = "0 0 0 3px rgba(99,102,241,0.15)";
+            e.currentTarget.style.borderColor = "rgba(76,215,246,0.5)";
+            e.currentTarget.style.boxShadow = "0 0 0 3px rgba(76,215,246,0.08)";
           }}
           onBlur={e => {
-            e.currentTarget.style.borderColor = "var(--border)";
+            e.currentTarget.style.borderColor = "var(--border-glass)";
             e.currentTarget.style.boxShadow = "none";
           }}
         />
         <button
           type="submit"
-          className="absolute right-2 h-10 px-5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90"
-          style={{ backgroundColor: "var(--accent)", color: "white" }}
+          className="absolute right-2 h-10 px-5 rounded text-sm font-semibold transition-opacity hover:opacity-90"
+          style={{
+            backgroundColor: "var(--accent)",
+            color: "white",
+            fontFamily: "var(--font-body)",
+          }}
         >
           Search
         </button>
