@@ -65,17 +65,18 @@ export default async function HomePage() {
           />
           <div
             className="absolute -top-20 -right-40 w-[400px] h-[400px] rounded-full opacity-10 blur-3xl"
-            style={{ background: "radial-gradient(circle, var(--accent-2) 0%, transparent 70%)" }}
+            style={{ background: "radial-gradient(circle, var(--secondary) 0%, transparent 70%)" }}
           />
         </div>
 
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-16 sm:pb-24 text-center">
           <div
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-8 text-[11px] font-semibold uppercase tracking-widest"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded border mb-8 text-[11px] font-bold uppercase tracking-widest"
             style={{
-              borderColor: "rgba(99,102,241,0.3)",
+              borderColor: "rgba(99,102,241,0.25)",
               backgroundColor: "rgba(99,102,241,0.08)",
               color: "var(--accent-2)",
+              fontFamily: "var(--font-mono)",
             }}
           >
             <div className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
@@ -84,7 +85,7 @@ export default async function HomePage() {
 
           <h1
             className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6"
-            style={{ color: "var(--foreground)" }}
+            style={{ color: "var(--foreground)", fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}
           >
             Every accelerator on Earth.
             <br />
@@ -101,7 +102,7 @@ export default async function HomePage() {
 
           <p
             className="text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
-            style={{ color: "var(--muted)" }}
+            style={{ color: "var(--muted)", fontFamily: "var(--font-body)" }}
           >
             The definitive global accelerator database. Search and apply to {total}+ verified programs
             across 7 regions — with due diligence reports and AI-generated application templates.
@@ -114,11 +115,12 @@ export default async function HomePage() {
               <Link
                 key={q}
                 href={`/search?q=${encodeURIComponent(q)}`}
-                className="px-3 py-1 rounded-full border text-[11px] transition-all hover:opacity-80"
+                className="px-3 py-1 rounded border text-[11px] transition-all hover:opacity-80"
                 style={{
-                  borderColor: "var(--border)",
+                  borderColor: "var(--border-glass)",
                   color: "var(--muted)",
                   backgroundColor: "var(--surface)",
+                  fontFamily: "var(--font-mono)",
                 }}
               >
                 {q}
@@ -134,12 +136,15 @@ export default async function HomePage() {
               { value: "Free", label: "Forever" },
             ].map(({ value, label }) => (
               <div key={label} className="text-center">
-                <div className="text-2xl sm:text-3xl font-extrabold" style={{ color: "var(--foreground)" }}>
+                <div
+                  className="text-2xl sm:text-3xl font-extrabold"
+                  style={{ color: "var(--foreground)", fontFamily: "var(--font-mono)" }}
+                >
                   {value}
                 </div>
                 <div
                   className="text-[11px] uppercase tracking-wider mt-1"
-                  style={{ color: "var(--muted)" }}
+                  style={{ color: "var(--muted)", fontFamily: "var(--font-mono)" }}
                 >
                   {label}
                 </div>
@@ -152,7 +157,10 @@ export default async function HomePage() {
       {/* Regions */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-3" style={{ color: "var(--foreground)" }}>
+          <h2
+            className="text-2xl sm:text-3xl font-bold mb-3"
+            style={{ color: "var(--foreground)", fontFamily: "var(--font-display)" }}
+          >
             Browse by Region
           </h2>
           <p className="text-sm" style={{ color: "var(--muted)" }}>
@@ -163,8 +171,20 @@ export default async function HomePage() {
           {ALL_REGIONS.map(region => (
             <Link key={region} href={`/search?region=${encodeURIComponent(region)}`}>
               <div
-                className="rounded-2xl border p-5 transition-all duration-200 hover:border-accent/40 hover:shadow-lg group cursor-pointer h-full"
-                style={{ backgroundColor: "var(--surface)", borderColor: "var(--border)" }}
+                className="rounded-xl border p-5 transition-all duration-150 group cursor-pointer h-full"
+                style={{
+                  backgroundColor: "var(--surface)",
+                  borderColor: "var(--border-glass)",
+                  backdropFilter: "blur(20px)",
+                }}
+                onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
+                  e.currentTarget.style.borderColor = "rgba(99,102,241,0.3)";
+                  e.currentTarget.style.boxShadow = "0 0 24px rgba(99,102,241,0.06)";
+                }}
+                onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
+                  e.currentTarget.style.borderColor = "var(--border-glass)";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
               >
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-2xl">{REGION_EMOJIS[region] ?? "🌍"}</span>
@@ -174,10 +194,13 @@ export default async function HomePage() {
                     style={{ color: "var(--muted)" }}
                   />
                 </div>
-                <div className="font-semibold text-sm mb-1" style={{ color: "var(--foreground)" }}>
+                <div
+                  className="font-semibold text-sm mb-1"
+                  style={{ color: "var(--foreground)", fontFamily: "var(--font-display)" }}
+                >
                   {region}
                 </div>
-                <div className="text-xs mb-2" style={{ color: "var(--accent-2)" }}>
+                <div className="text-xs mb-2" style={{ color: "var(--accent-2)", fontFamily: "var(--font-mono)" }}>
                   {regionCounts[region] ?? 0} programs
                 </div>
                 <div className="text-[11px] leading-relaxed" style={{ color: "var(--muted)" }}>
@@ -193,7 +216,10 @@ export default async function HomePage() {
       <section className="py-16 sm:py-24 px-4 sm:px-6" style={{ backgroundColor: "var(--surface)" }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-3" style={{ color: "var(--foreground)" }}>
+            <h2
+              className="text-2xl sm:text-3xl font-bold mb-3"
+              style={{ color: "var(--foreground)", fontFamily: "var(--font-display)" }}
+            >
               How it works
             </h2>
             <p className="text-sm" style={{ color: "var(--muted)" }}>
@@ -223,9 +249,9 @@ export default async function HomePage() {
             ].map(({ step, icon: Icon, title, desc }) => (
               <div key={step} className="text-center">
                 <div
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4"
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4"
                   style={{
-                    backgroundColor: "rgba(99,102,241,0.12)",
+                    backgroundColor: "rgba(99,102,241,0.1)",
                     border: "1px solid rgba(99,102,241,0.2)",
                   }}
                 >
@@ -233,11 +259,14 @@ export default async function HomePage() {
                 </div>
                 <div
                   className="text-[11px] font-bold uppercase tracking-widest mb-2"
-                  style={{ color: "var(--accent)" }}
+                  style={{ color: "var(--secondary)", fontFamily: "var(--font-mono)" }}
                 >
                   {step}
                 </div>
-                <h3 className="font-semibold mb-2 text-sm" style={{ color: "var(--foreground)" }}>
+                <h3
+                  className="font-semibold mb-2 text-sm"
+                  style={{ color: "var(--foreground)", fontFamily: "var(--font-display)" }}
+                >
                   {title}
                 </h3>
                 <p className="text-[13px] leading-relaxed" style={{ color: "var(--muted)" }}>
@@ -253,7 +282,10 @@ export default async function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
         <div className="flex items-center justify-between mb-10">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold" style={{ color: "var(--foreground)" }}>
+            <h2
+              className="text-2xl sm:text-3xl font-bold"
+              style={{ color: "var(--foreground)", fontFamily: "var(--font-display)" }}
+            >
               Top Rated Programs
             </h2>
             <p className="text-sm mt-1" style={{ color: "var(--muted)" }}>
@@ -277,17 +309,22 @@ export default async function HomePage() {
       <section className="py-16 sm:py-24 px-4 sm:px-6" style={{ backgroundColor: "var(--surface)" }}>
         <div className="max-w-4xl mx-auto">
           <div
-            className="rounded-3xl border p-8 sm:p-12"
-            style={{ borderColor: "var(--border)", backgroundColor: "var(--surface-2)" }}
+            className="rounded-xl border p-8 sm:p-12"
+            style={{
+              borderColor: "var(--border-glass)",
+              backgroundColor: "var(--surface-2)",
+              backdropFilter: "blur(20px)",
+            }}
           >
             <div className="grid sm:grid-cols-2 gap-8 items-center">
               <div>
                 <div
-                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-[11px] font-semibold mb-5"
+                  className="inline-flex items-center gap-2 px-3 py-1 rounded border text-[11px] font-bold mb-5"
                   style={{
-                    borderColor: "rgba(52,211,153,0.3)",
+                    borderColor: "rgba(52,211,153,0.25)",
                     backgroundColor: "rgba(52,211,153,0.08)",
                     color: "var(--success)",
+                    fontFamily: "var(--font-mono)",
                   }}
                 >
                   <Shield size={10} />
@@ -295,7 +332,7 @@ export default async function HomePage() {
                 </div>
                 <h2
                   className="text-xl sm:text-2xl font-bold mb-3"
-                  style={{ color: "var(--foreground)" }}
+                  style={{ color: "var(--foreground)", fontFamily: "var(--font-display)" }}
                 >
                   We check every accelerator so you don&apos;t apply to ghost programs
                 </h2>
@@ -338,20 +375,23 @@ export default async function HomePage() {
                   return (
                     <div
                       key={name}
-                      className="rounded-xl border p-3.5 flex items-center gap-3"
-                      style={{ borderColor: "var(--border)", backgroundColor: "var(--surface)" }}
+                      className="rounded-lg border p-3.5 flex items-center gap-3"
+                      style={{ borderColor: "var(--border-glass)", backgroundColor: "var(--surface)" }}
                     >
                       <div
                         className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold border-2 shrink-0"
-                        style={{ borderColor: color, color, backgroundColor: `${color}15` }}
+                        style={{ borderColor: color, color, backgroundColor: `${color}15`, fontFamily: "var(--font-mono)" }}
                       >
                         {score}
                       </div>
                       <div className="min-w-0">
-                        <div className="text-xs font-semibold" style={{ color: "var(--foreground)" }}>
+                        <div
+                          className="text-xs font-semibold"
+                          style={{ color: "var(--foreground)", fontFamily: "var(--font-display)" }}
+                        >
                           {name}
                         </div>
-                        <div className="text-[11px] truncate" style={{ color: "var(--muted)" }}>
+                        <div className="text-[11px] truncate" style={{ color: "var(--muted)", fontFamily: "var(--font-mono)" }}>
                           {note}
                         </div>
                       </div>
@@ -368,7 +408,7 @@ export default async function HomePage() {
       <section className="max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center">
         <h2
           className="text-3xl sm:text-4xl font-extrabold mb-4"
-          style={{ color: "var(--foreground)" }}
+          style={{ color: "var(--foreground)", fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}
         >
           Your accelerator is in here.
         </h2>
@@ -383,15 +423,15 @@ export default async function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t py-8 px-4 sm:px-6" style={{ borderColor: "var(--border)" }}>
+      <footer className="border-t py-8 px-4 sm:px-6" style={{ borderColor: "var(--border-glass)" }}>
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Globe size={14} style={{ color: "var(--accent-2)" }} />
-            <span className="text-xs font-semibold" style={{ color: "var(--muted)" }}>
+            <span className="text-xs font-semibold" style={{ color: "var(--muted)", fontFamily: "var(--font-mono)" }}>
               Global Accelerators For Startup Business
             </span>
           </div>
-          <p className="text-[11px]" style={{ color: "var(--muted)" }}>
+          <p className="text-[11px]" style={{ color: "var(--muted)", fontFamily: "var(--font-mono)" }}>
             {total}+ verified programs · Updated regularly · Built for founders worldwide
           </p>
         </div>
